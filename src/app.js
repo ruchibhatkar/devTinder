@@ -23,31 +23,42 @@ const app = express();
 //     res.end("I'm a dashboard");
 // });
 
-app.post("/user",(req,res) => {
-    res.end("Data saved to database successfully");
+//Handling different types of API using postman
+// app.post("/user",(req,res) => {
+//     res.end("Data saved to database successfully");
+// });
+
+// app.get("/user",(req,res) => {
+//     res.end("I am GET API");
+// });
+
+// app.delete("/user",(req,res) => {
+//     res.end("Data deleted successfully");
+// }); 
+
+// app.put("/user",(req,res) => {
+//     res.end("Data updated successfully by PUT API");
+// });
+
+// app.patch("/user",(req,res) => {
+//     res.end("Data updated by successfully by PATCH API");
+// });
+
+// app.use("/user",(req,res) =>{
+//     res.end("HAHAHAHAHA");
+// });
+
+//Playing with routes
+app.get("/user/:userId",(req,res) => {
+    console.log(req.params);            //Prints dynamic parameters
+    res.end("Hello from test server");
 });
 
+// /user?userId=707&password=testing
 app.get("/user",(req,res) => {
-    res.end("I am GET API");
+    console.log(req.query);             //Helps to get query paramters
+    res.end("Hello from test server");
 });
-
-app.delete("/user",(req,res) => {
-    res.end("Data deleted successfully");
-}); 
-
-app.put("/user",(req,res) => {
-    res.end("Data updated successfully by PUT API");
-});
-
-app.patch("/user",(req,res) => {
-    res.end("Data updated by successfully by PATCH API");
-});
-
-app.use("/user",(req,res) =>{
-    res.end("HAHAHAHAHA");
-});
-
-
 
 //Listen to server
 app.listen(7777,()=>{
