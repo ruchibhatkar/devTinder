@@ -6,59 +6,30 @@ const express = require("express");
 //Create app
 const app = express();
 
-//Create request handler functions
-// app.use("/hello",(req,res)=>{       // "/hello" are called as routes here
-//     res.end("Namste dev");
-// });
-
-// app.use("/test",(req,res)=>{
-//     res.end("Hello from the test server");
-// });
-
-// app.use("/api/mine",(req,res)=>{
-//     res.end("Hello from the API");
-// });
-
-// app.use("/",(req,res)=>{
-//     res.end("I'm a dashboard");
-// });
-
-//Handling different types of API using postman
-// app.post("/user",(req,res) => {
-//     res.end("Data saved to database successfully");
-// });
-
-// app.get("/user",(req,res) => {
-//     res.end("I am GET API");
-// });
-
-// app.delete("/user",(req,res) => {
-//     res.end("Data deleted successfully");
-// }); 
-
-// app.put("/user",(req,res) => {
-//     res.end("Data updated successfully by PUT API");
-// });
-
-// app.patch("/user",(req,res) => {
-//     res.end("Data updated by successfully by PATCH API");
-// });
-
-// app.use("/user",(req,res) =>{
-//     res.end("HAHAHAHAHA");
-// });
-
-//Playing with routes
-app.get("/user/:userId",(req,res) => {
-    console.log(req.params);            //Prints dynamic parameters
-    res.end("Hello from test server");
-});
-
-// /user?userId=707&password=testing
-app.get("/user",(req,res) => {
-    console.log(req.query);             //Helps to get query paramters
-    res.end("Hello from test server");
-});
+//Multiple route handlers
+app.use("/user", [
+    (req,res,next) => {
+        //res.send("Handling the route user");
+        console.log("Handling route user");
+        //res.send("1st response"); 
+        next();    
+    },
+    (req,res,next) => {
+        console.log("Handling route user 2");
+        //res.send("2nd response");
+        next();
+    }],
+    (req,res,next) => {
+        next();
+        console.log("Handling route user 3");
+        //res.send("3rd response"); 
+    },
+    (req,res,next) => {
+        //next();
+        console.log("Handling route user 4");
+        res.send("4th response"); 
+    }
+);
 
 //Listen to server
 app.listen(7777,()=>{
